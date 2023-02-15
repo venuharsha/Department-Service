@@ -11,8 +11,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class DepartmentService {
@@ -26,17 +24,16 @@ public class DepartmentService {
                 .deptName(departmentRequest.getDeptName())
                 .deptHead(departmentRequest.getDeptHead())
                 .build();
-        Department department = departmentRepository.save(d);
+        departmentRepository.save(d);
 
-        if (department!=null) return "Department created successfully.";
-         else return "Department not created.";
+        return "Department created successfully.";
 
     }
 
     public List<DepartmentResponse> getAllDepartments() {
 
         List<Department> departmentList = departmentRepository.findAll();
-        return departmentList.stream().map(department -> mapToDepartmentResponse(department)).collect(Collectors.toList());
+        return departmentList.stream().map(department -> mapToDepartmentResponse(department)).toList();
     }
 
     private DepartmentResponse mapToDepartmentResponse(Department department) {
@@ -59,7 +56,7 @@ public class DepartmentService {
 
     public List<DepartmentResponse> getDepartmentByName(String name) {
         List<Department> byDeptName = departmentRepository.findByDeptName(name);
-        if (!CollectionUtils.isEmpty(byDeptName)) return byDeptName.stream().map(department -> mapToDepartmentResponse(department)).collect(Collectors.toList());
+        if (!CollectionUtils.isEmpty(byDeptName)) return byDeptName.stream().map(department -> mapToDepartmentResponse(department)).toList();
         else throw new DepartmentNotFoundException("Department not found for given name: "+ name);
     }
 }
