@@ -9,7 +9,7 @@ import lombok.NonNull;
 @Builder
 public class DepartmentResponse {
 
-    @Id
+
     private String deptId;
 
     private String deptName;

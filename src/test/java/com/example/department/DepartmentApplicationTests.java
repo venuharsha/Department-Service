@@ -52,4 +52,15 @@ class DepartmentApplicationTests {
 		assertThrows(DepartmentNotFoundException.class, () -> departmentService.getDepartmentById("12345").getDeptName());
 	}
 
+	@Test
+	void getDepartmentByNameTest() {
+		when(departmentRepository.findByDeptName("MPC")).thenReturn(Stream.of(new Department("1234", "MPC", "")).toList());
+		assertEquals(1, departmentService.getDepartmentByName("MPC").size());
+	}
+
+	@Test
+	void getDepartmentByNameTest2() {
+		when(departmentRepository.findByDeptName("MPC")).thenReturn(Stream.of(new Department("1234", "BiPC", "")).toList());
+		assertThrows(DepartmentNotFoundException.class, () -> departmentService.getDepartmentByName("BiPC"));
+	}
 }

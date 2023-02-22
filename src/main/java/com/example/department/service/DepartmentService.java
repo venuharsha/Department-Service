@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DepartmentService {
@@ -20,13 +21,13 @@ public class DepartmentService {
 
     public String createDepartment(DepartmentRequest departmentRequest) {
         Department d = Department.builder()
-                .deptId(departmentRequest.getId())
+                .deptId(departmentRequest.getDeptId())
                 .deptName(departmentRequest.getDeptName())
                 .deptHead(departmentRequest.getDeptHead())
                 .build();
         departmentRepository.save(d);
 
-        return "Department created successfully.";
+        return "Department created successfully";
 
     }
 
